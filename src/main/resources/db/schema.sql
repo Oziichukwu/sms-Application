@@ -115,13 +115,13 @@ ALTER TABLE ONLY phone_number ALTER COLUMN id SET DEFAULT nextval('phone_number_
 -- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY account (id, auth_id, username) FROM stdin;
-1	20S0KPNOIM	azr1
-2	54P2EOKQ47	azr2
-3	9LLV6I4ZWI	azr3
-4	YHWE3HDLPQ	azr4
-5	6DLH8A25XZ	azr5
-\.
+insert into account (id, auth_id, username)
+values(1,	'20S0KPNOIM'	,'azr1'),
+(2	,'54P2EOKQ47'	,'azr2'),
+(3	,'9LLV6I4ZWI',	'azr3'),
+(4	,'YHWE3HDLPQ'	,'azr4'),
+(5	,'6DLH8A25XZ','	azr5');
+
 
 
 --
@@ -135,18 +135,18 @@ SELECT pg_catalog.setval('account_id_seq', 5, true);
 -- Data for Name: phone_number; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY phone_number (id, number, account_id) FROM stdin;
-1	4924195509198	1
-2	4924195509196	1
-3	4924195509197	1
-4	4924195509195	1
-5	4924195509049	1
-6	4924195509012	1
-7	4924195509193	1
-8	4924195509029	1
-9	4924195509192	1
-10	4924195509194	1
-11	31297728125	1
+insert into phone_number (id, number, account_id)
+values (1	,'4924195509198',	1),
+(2	,'4924195509196',	1),
+(3	,'4924195509197',	1),
+(4	,'4924195509195',	1),
+(5	,'4924195509049',	1),
+(6	,'4924195509012'	,1),
+(7	,'4924195509193',	1),
+(8	,'4924195509029	',1),
+(9	,'4924195509192',	1),
+(10	,'4924195509194'	,1),
+(11	,'31297728125'	,1);
 12	3253280312	1
 13	3253280311	1
 14	3253280315	1
