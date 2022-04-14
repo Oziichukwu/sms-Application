@@ -1,4 +1,4 @@
-package com.example.smsapplication.sms;
+package com.example.smsapplication.services.sms;
 
 
 import com.example.smsapplication.data.models.PhoneNumber;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -90,9 +89,10 @@ public class SmsServiceImpl implements SmsService{
 
     private void checkForStopWordInSms(MessageDto messageResponse) throws SmsBusinessException {
         PhoneNumber foundSender = phoneNumberService.findPhoneNumberByNumber(messageResponse.getSmsSender());
-        Set<String> savedWords = Set.of(messageResponse.getSmsBody().split("[ !@#$%^&*()_+}{\":?><,./;'=]"));
+        //Set<String> savedWords = Set.of(messageResponse.getSmsBody().split("[ !@#$%^&*()_+}{\":?><,./;'=]"));
 
-        if (savedWords.contains("STOP") || savedWords.contains("stop")){
+        if (messageResponse.getSmsBody().toUpperCase().trim().equals("STOP")){
+
             redisTemplate.opsForHash().put(messageResponse.getSmsSender(),foundSender.getId(),messageResponse.getSmsReceiver());
             redisTemplate.expire(messageResponse.getSmsSender(), 4 , TimeUnit.HOURS);
         }

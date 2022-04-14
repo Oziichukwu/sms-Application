@@ -2,8 +2,7 @@ package com.example.smsapplication.web.controller;
 
 import com.example.smsapplication.dtos.APIResponse;
 import com.example.smsapplication.dtos.MessageDto;
-import com.example.smsapplication.sms.SmsService;
-import com.example.smsapplication.web.exceptions.MessageApplicationException;
+import com.example.smsapplication.services.sms.SmsService;
 import com.example.smsapplication.web.exceptions.SmsBusinessException;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

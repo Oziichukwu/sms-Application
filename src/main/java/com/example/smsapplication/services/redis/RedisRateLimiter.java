@@ -43,19 +43,6 @@ public class RedisRateLimiter {
             }
             });
 
-//            @Override
-//            public <K, V> List<Object> execute(RedisOperations<K, V> operations){
-//                final StringRedisTemplate redisTemplate = (StringRedisTemplate) operations;
-//                final ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-//                operations.multi();
-//                valueOperations.increment(key);
-//                redisTemplate.expire(key, 24, TimeUnit.HOURS);
-//
-//                return operations.exec();
-//            }
-//        });
-//        assert transactionResults != null;
-//        logger.info("Current request count: " + transactionResults.get(0));
         return true;
     }
     public boolean isLimitExceeded(String key){
