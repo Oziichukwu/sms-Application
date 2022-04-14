@@ -15,9 +15,7 @@
     <description>sms-application</description>
     <properties>
         <properties>
-            <maven.compiler.source>11</maven.compiler.source>
-            <maven.compiler.target>11</maven.compiler.target>
-            <maven.compiler.release>11</maven.compiler.release>
+            <java.version>1.8</java.version>
         </properties>
     </properties>
     <dependencies>
@@ -113,7 +111,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${project.parent.version}</version>
+                <version>2.6.6</version>
                 <configuration>
                     <excludes>
                         <exclude>
