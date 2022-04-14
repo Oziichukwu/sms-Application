@@ -1,7 +1,6 @@
 package com.example.smsapplication.services.redis;
 
 
-import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -9,7 +8,6 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,7 +31,7 @@ public class RedisRateLimiter {
 
         List<Object> transactionResults = stringTemplate.execute(new SessionCallback<>() {
             @Override
-            public <K, V> List<Object> execute(@NonNull RedisOperations<K, V> operations) throws DataAccessException {
+            public <K,V>List<Object> execute(RedisOperations<K, V> operations) throws DataAccessException {
                 final StringRedisTemplate redisTemplate = (StringRedisTemplate) operations;
                 final ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
                 operations.multi();
@@ -42,7 +40,19 @@ public class RedisRateLimiter {
 
                 return operations.exec();
             }
-        });
+            });
+
+//            @Override
+//            public <K, V> List<Object> execute(RedisOperations<K, V> operations){
+//                final StringRedisTemplate redisTemplate = (StringRedisTemplate) operations;
+//                final ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+//                operations.multi();
+//                valueOperations.increment(key);
+//                redisTemplate.expire(key, 24, TimeUnit.HOURS);
+//
+//                return operations.exec();
+//            }
+//        });
 //        assert transactionResults != null;
 //        logger.info("Current request count: " + transactionResults.get(0));
         return true;
