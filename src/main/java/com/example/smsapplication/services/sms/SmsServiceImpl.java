@@ -90,7 +90,7 @@ public class SmsServiceImpl implements SmsService{
 
     private void checkForStopWordInSms(MessageDto messageResponse) throws SmsBusinessException {
         PhoneNumber foundSender = phoneNumberService.findPhoneNumberByNumber(messageResponse.getSmsSender());
-        List<String> savedWords = List.of(messageResponse.getSmsBody().split("[ !@#$%^&*()_+}{\":?><,./;'=]"));
+        Set<String> savedWords = Set.of(messageResponse.getSmsBody().split("[ !@#$%^&*()_+}{\":?><,./;'=]"));
 
         if (savedWords.contains("STOP") || savedWords.contains("stop")){
             redisTemplate.opsForHash().put(messageResponse.getSmsSender(),foundSender.getId(),messageResponse.getSmsReceiver());
