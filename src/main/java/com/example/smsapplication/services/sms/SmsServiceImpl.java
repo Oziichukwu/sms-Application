@@ -37,9 +37,9 @@ public class SmsServiceImpl implements SmsService{
     }
 
     @Override
-    public MessageDto sendSms(MessageDto messageDto) throws SmsBusinessException {
+    public MessageDto sendSms(String jsonObject) throws SmsBusinessException {
 
-        MessageDto messageRequest = transformJsonInput(messageDto);
+        MessageDto messageRequest = transformJsonInput(jsonObject);
 
         checkValidityOfInput(messageRequest);
 
@@ -76,9 +76,9 @@ public class SmsServiceImpl implements SmsService{
 
 
     @Override
-    public MessageDto receiveSms(MessageDto request) throws SmsBusinessException {
+    public MessageDto receiveSms(String jsonObject) throws SmsBusinessException {
 
-        MessageDto messageDto = transformJsonInput(request);
+        MessageDto messageDto = transformJsonInput(jsonObject);
         checkValidityOfInput(messageDto);
 
         MessageDto messageResponse = objectMapper.convertValue(messageDto, MessageDto.class);
@@ -99,11 +99,11 @@ public class SmsServiceImpl implements SmsService{
     }
 
 
-    private MessageDto transformJsonInput(MessageDto messageDto) throws MessageApplicationException {
+    private MessageDto transformJsonInput(String jsonObject) throws MessageApplicationException {
 
-        if(messageDto == null){
+        if(jsonObject == null){
             throw new MessageApplicationException("Json cannot be empty");
         }
-        return gson.fromJson(String.valueOf(messageDto), MessageDto.class);
+        return gson.fromJson(jsonObject, MessageDto.class);
     }
 }

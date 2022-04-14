@@ -25,10 +25,10 @@ public class SmsController {
     }
 
     @PostMapping("/outbound/sms")
-    public ResponseEntity<?>sendMessage(@RequestBody MessageDto request){
+    public ResponseEntity<?>sendMessage(@RequestBody String jsonObject){
 
         try{
-            smsService.sendSms(request);
+            smsService.sendSms(jsonObject);
             return new ResponseEntity<>(new APIResponse("outbound sms ok", ""), HttpStatus.OK);
         }catch (SmsBusinessException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -36,9 +36,9 @@ public class SmsController {
     }
 
     @PostMapping("/inbound/sms")
-    public ResponseEntity<?>receiveMessage(@Valid @NotNull  @RequestBody MessageDto request){
+    public ResponseEntity<?>receiveMessage(@Valid @NotNull  @RequestBody String jsonObject){
         try{
-            smsService.receiveSms(request);
+            smsService.receiveSms(jsonObject);
             return new ResponseEntity<>(new APIResponse("inbound sms ok", ""), HttpStatus.OK);
         }catch (SmsBusinessException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

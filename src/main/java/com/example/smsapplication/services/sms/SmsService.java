@@ -5,8 +5,8 @@ import com.example.smsapplication.web.exceptions.SmsBusinessException;
 
 public interface SmsService {
 
-    MessageDto sendSms(MessageDto messageDto) throws SmsBusinessException;
+    MessageDto sendSms(String jsonObject) throws SmsBusinessException;
 
-    MessageDto receiveSms(MessageDto messageDto) throws SmsBusinessException;
+    MessageDto receiveSms(String jsonObject) throws SmsBusinessException;
 
 }
