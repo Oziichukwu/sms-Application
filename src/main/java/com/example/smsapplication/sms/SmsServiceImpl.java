@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -61,6 +62,7 @@ public class SmsServiceImpl implements SmsService{
         if (Boolean.TRUE.equals(redisTemplate.hasKey(messageRequest.getSmsSender()))){
             throw new MessageApplicationException("Message from " + messageRequest.getSmsSender() + " to " +
                     messageRequest.getSmsReceiver() + " has been blocked by STOP request");
+
         }
     }
 
@@ -88,7 +90,7 @@ public class SmsServiceImpl implements SmsService{
 
     private void checkForStopWordInSms(MessageDto messageResponse) throws SmsBusinessException {
         PhoneNumber foundSender = phoneNumberService.findPhoneNumberByNumber(messageResponse.getSmsSender());
-        Set<String> savedWords = Set.of(messageResponse.getSmsBody().split("[ !@#$%^&*()_+}{\":?><,./;'=]"));
+        List<String> savedWords = List.of(messageResponse.getSmsBody().split("[ !@#$%^&*()_+}{\":?><,./;'=]"));
 
         if (savedWords.contains("STOP") || savedWords.contains("stop")){
             redisTemplate.opsForHash().put(messageResponse.getSmsSender(),foundSender.getId(),messageResponse.getSmsReceiver());
