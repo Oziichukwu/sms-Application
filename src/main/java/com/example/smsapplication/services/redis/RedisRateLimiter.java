@@ -29,9 +29,10 @@ public class RedisRateLimiter {
         String requests = operations.get(key);
         if(StringUtils.isNotBlank(requests) && Integer.parseInt(requests) >= REQUESTS_PER_24_HOURS) return false;
 
-        List<Object> transactionResults = stringTemplate.execute(new SessionCallback<>() {
+        List<Object> transactionResults = stringTemplate.execute(new SessionCallback<List<Object>>() {
+            @SuppressWarnings("unchecked")
             @Override
-            public <K,V>List<Object> execute(RedisOperations<K, V> operations) throws DataAccessException {
+            public <K,V> List<Object> execute(final RedisOperations<K,V> operations) throws DataAccessException {
                 final StringRedisTemplate redisTemplate = (StringRedisTemplate) operations;
                 final ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
                 operations.multi();
