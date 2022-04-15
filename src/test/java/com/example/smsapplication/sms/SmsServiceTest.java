@@ -50,31 +50,31 @@ public class SmsServiceTest {
         phoneNumberRepository.deleteAll();
 
         Account firstAccount = accountRepository.save(
-                new Account(1, "QWERDF", "User1"));
+                new Account(1, "20S0KPNOIM", "azr1"));
 
         Account secondAccount = accountRepository.save(
-                new Account(2, "POIUYT", "User2"));
+                new Account(2, "54P2EOKQ47", "azr2"));
 
         PhoneNumber firstPhoneNumber = phoneNumberRepository.save(
-                new PhoneNumber(1, "6475765856", firstAccount));
+                new PhoneNumber(1, "4924195509198", firstAccount));
 
         PhoneNumber secondPhoneNumber = phoneNumberRepository.save(
-                new PhoneNumber(2, "7576546567", secondAccount));
+                new PhoneNumber(2, "4924195509196", secondAccount));
 
         PhoneNumber thirdPhoneNumber = phoneNumberRepository.save(
-                new PhoneNumber(3, "112200339", secondAccount));
+                new PhoneNumber(3, "4924195509197", secondAccount));
 
         PhoneNumber fourthPhoneNumber = phoneNumberRepository.save(
-                new PhoneNumber(4, "0989876783", secondAccount));
+                new PhoneNumber(4, "4924195509195", secondAccount));
 
         firstRequest = new MessageDto();
-        firstRequest.setSmsSender("6475765856");
-        firstRequest.setSmsReceiver("7576546567");
+        firstRequest.setSmsSender("4924195509197");
+        firstRequest.setSmsReceiver("4924195509196");
         firstRequest.setSmsBody("Hello, beautiful");
 
         secondRequest = new MessageDto();
-        secondRequest.setSmsSender("112200339");
-        secondRequest.setSmsReceiver("0989876783");
+        secondRequest.setSmsSender("4924195509197");
+        secondRequest.setSmsReceiver("4924195509195");
         secondRequest.setSmsBody("Hillarious!");
     }
 
@@ -87,17 +87,17 @@ public class SmsServiceTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getSmsBody()).isEqualTo("Hillarious!");
-        assertThat(response.getSmsReceiver()).isEqualTo("0989876783");
-        assertThat(response.getSmsSender()).isEqualTo("112200339");
+        assertThat(response.getSmsReceiver()).isEqualTo("4924195509195");
+        assertThat(response.getSmsSender()).isEqualTo("4924195509197");
     }
 
     @Test
     @DisplayName("Test that api call cannot be more than 50 in 24hrs")
     void testThatRateLimiterWorksOnApiCalls() throws IOException, SmsBusinessException {
         MessageDto request = new MessageDto();
-        request.setSmsSender("7576546567");
-        request.setSmsReceiver("0989876783");
-        request.setSmsBody("Bro, how far?");
+        request.setSmsSender("4924195509196");
+        request.setSmsReceiver("4924195509195");
+        request.setSmsBody("HOW ARE YOU DOING, TODAY?");
 
         String json = gson.toJson(request);
         for (int apiCall = 1; apiCall <= 50; apiCall++) {
@@ -109,9 +109,9 @@ public class SmsServiceTest {
     @Test
     void cacheMessageThatContainsStopTest() {
         MessageDto request = new MessageDto();
-        request.setSmsSender("112200339");
-        request.setSmsReceiver("0989876783");
-        request.setSmsBody("Heyo! STOP");
+        request.setSmsSender("4924195509197");
+        request.setSmsReceiver("4924195509195");
+        request.setSmsBody("PLEASE! STOP");
 
 
         StringBuffer sb = new StringBuffer();
