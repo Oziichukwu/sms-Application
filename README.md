@@ -30,4 +30,4 @@ mvn -B package --file pom.xml
 ## Author
 👤 **ukaegbu-goodnews**
 
-* Github: [@ukaegbu-goodnews](https://github.com/Oziichukwu)
+* Github: [@Oziichukwu](https://github.com/Oziichukwu)
