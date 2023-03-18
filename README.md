@@ -3,7 +3,7 @@ An Sms-application built with spring boot
 
 <h1 align="center">Welcome to SMS Application</h1>
 
-> This project is a technical assignment submitted to talentup.africa in fulfillment of a job application
+> This project is a technical project submitted to talentup.africa
 
 ## Environment setup
 1. Click [here](https://www.jetbrains.com/help/idea/installation-guide.html#toolbox) to install IntelliJ IDEA IDE
